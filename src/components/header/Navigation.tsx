@@ -1,7 +1,7 @@
 "use client";
 
 import useAuth from "@/hooks/useAuth";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -35,7 +35,10 @@ export default function Navigation() {
                 >
                   Profile
                 </Link>
-                <button className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer">
+                <button
+                  className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer"
+                  onClick={() => signOut()}
+                >
                   Logout
                 </button>
               </div>

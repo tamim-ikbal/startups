@@ -1,14 +1,30 @@
 "use client";
+import useAuth from "@/hooks/useAuth";
 import clsx from "clsx";
+import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function MobileMenu() {
   const [open, setOpen] = useState<boolean>(false);
+  const auth = useAuth();
+  const { user } = auth || {};
+
   const handleMenuBtnClick = () => {
     setOpen((state) => !state);
   };
+
+  const handleLogin = async () => {
+    await signIn("github");
+    handleMenuBtnClick();
+  };
+
+  const handleLogout = async () => {
+    signOut();
+    handleMenuBtnClick();
+  };
+
   return (
     <>
       <div className="block lg:hidden">
@@ -68,25 +84,41 @@ export default function MobileMenu() {
             >
               Home
             </Link>
-            <Link
-              href="/profile"
-              className="text-base font-semibold text-left py-2 text-black"
-              onClick={handleMenuBtnClick}
-            >
-              Profile
-            </Link>
-            <button className="text-base font-semibold text-left py-2 text-black">
-              Logout
-            </button>
+            {user && (
+              <>
+                <Link
+                  href="/create"
+                  className="text-base font-semibold text-left py-2 text-black"
+                  onClick={handleMenuBtnClick}
+                >
+                  Create
+                </Link>
+                <Link
+                  href="/profile"
+                  className="text-base font-semibold text-left py-2 text-black"
+                  onClick={handleMenuBtnClick}
+                >
+                  Profile
+                </Link>
+              </>
+            )}
           </div>
           <div className="mt-auto px-4">
-            <Link
-              href="/create"
-              className="block w-full text-center bg-primary py-4 rounded-lg text-base text-white font-semibold cursor-pointer"
-              onClick={handleMenuBtnClick}
-            >
-              Create
-            </Link>
+            {user ? (
+              <button
+                className="block w-full text-center bg-primary py-4 rounded-lg text-base text-white font-semibold cursor-pointer"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                className="block w-full text-center bg-primary py-4 rounded-lg text-base text-white font-semibold cursor-pointer"
+                onClick={handleLogin}
+              >
+                Login
+              </button>
+            )}
           </div>
         </div>
         <div
