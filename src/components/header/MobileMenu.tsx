@@ -49,7 +49,7 @@ export default function MobileMenu() {
         </button>
         <div
           className={clsx(
-            "fixed top-0 left-0 flex flex-col w-[95%] sm:w-80 h-screen bg-white z-[9991] py-5 duration-200 delay-75",
+            "fixed top-0 left-0 flex flex-col w-[95%] sm:w-80 h-dvh bg-white z-[9991] py-5 duration-200 delay-75",
             { "invisible opacity-0": !open },
             { "visible opacity-100": open }
           )}
