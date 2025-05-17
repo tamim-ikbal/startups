@@ -1,13 +1,12 @@
 "use client";
 
-import useAuth from "@/hooks/useAuth";
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Navigation() {
-  const auth = useAuth();
-  const { user } = auth || {};
+  const { data: session } = useSession();
+  const { user } = session || {};
 
   return (
     <div className="hidden lg:flex gap-[16px] lg:gap-[30px] items-center">

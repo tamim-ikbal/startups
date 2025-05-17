@@ -1,15 +1,14 @@
 "use client";
-import useAuth from "@/hooks/useAuth";
 import clsx from "clsx";
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function MobileMenu() {
   const [open, setOpen] = useState<boolean>(false);
-  const auth = useAuth();
-  const { user } = auth || {};
+  const { data: session } = useSession();
+  const { user } = session || {};
 
   const handleMenuBtnClick = () => {
     setOpen((state) => !state);

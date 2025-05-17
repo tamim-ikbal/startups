@@ -1,16 +1,16 @@
 import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 
 const useAuth = () => {
-  const [auth, setAuth] = useState<Session | null>(null);
+  const auth: Session | null = null;
 
-  useEffect(() => {
-    (async () => {
-      const session = await getSession();
-      setAuth(session);
-    })();
-  }, []);
+  // const fetchAuth = async () => {
+  //   auth = await getServerSession();
+  // };
+
+  // if (!auth) {
+  //   fetchAuth();
+  // }
+
   return auth;
 };
 
