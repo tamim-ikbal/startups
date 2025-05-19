@@ -3,10 +3,24 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import Spinner from "../ui/Spinner";
 
 export default function Navigation() {
   const { data: session } = useSession();
   const { user } = session || {};
+  const [loginLoader, setLoginLoader] = useState<boolean>(false);
+  const [logoutLoader, setLogoutLoader] = useState<boolean>(false);
+
+  const handleLogin = async () => {
+    setLoginLoader(true);
+    await signIn("github");
+  };
+
+  const handleLogout = async () => {
+    setLogoutLoader(true);
+    await signOut();
+  };
 
   return (
     <div className="hidden lg:flex gap-[16px] lg:gap-[30px] items-center">
@@ -35,10 +49,11 @@ export default function Navigation() {
                   Profile
                 </Link>
                 <button
-                  className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer"
-                  onClick={() => signOut()}
+                  className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer inline-flex gap-[1px] items-center justify-between"
+                  onClick={handleLogout}
+                  disabled={logoutLoader}
                 >
-                  Logout
+                  Logout {logoutLoader && <Spinner color="text-blue-500" />}
                 </button>
               </div>
             </div>
@@ -46,10 +61,11 @@ export default function Navigation() {
         </>
       ) : (
         <button
-          className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer"
-          onClick={async () => signIn("github")}
+          className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer inline-flex gap-[1px] items-center"
+          onClick={handleLogin}
+          disabled={loginLoader}
         >
-          Login
+          {loginLoader && <Spinner color="text-blue-500" />} Login
         </button>
       )}
     </div>
