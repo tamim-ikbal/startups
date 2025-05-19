@@ -3,12 +3,15 @@ import PageHeader from "@/components/common/PageHeader";
 import PageSubtitle from "@/components/common/PageSubtitle";
 import PageTitle from "@/components/common/PageTitle";
 import Section from "@/components/common/Section";
+import Views from "@/components/startup/Views";
 import Markdown from "@/components/ui/Markdown";
+import ViewsSkeleton from "@/components/ui/skeletons/ViewsSkeleton";
 import { getStartupById } from "@/sanity/lib/query/startup";
 import { formatDate } from "@/utils/formatDate";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -27,7 +30,16 @@ export default async function Page({ params }: Props) {
   const startup = await getStartupById(id);
   if (!startup) notFound();
 
-  const { title, description, date, image, category, author, pitch } = startup;
+  const {
+    _id,
+    title,
+    description,
+    _createdAt: date,
+    image,
+    category,
+    author,
+    pitch,
+  } = startup;
 
   return (
     <>
@@ -92,6 +104,9 @@ export default async function Page({ params }: Props) {
           </div>
         </div>
       </Section>
+      <Suspense fallback={<ViewsSkeleton />}>
+        <Views id={_id} />
+      </Suspense>
     </>
   );
 }

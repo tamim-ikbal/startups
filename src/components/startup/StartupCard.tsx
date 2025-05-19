@@ -15,7 +15,7 @@ export default function StartupCard({ startup }: Props) {
     image,
     views,
     author,
-    date,
+    _createdAt: date,
     description = "",
   } = startup;
   return (

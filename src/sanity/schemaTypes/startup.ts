@@ -25,11 +25,6 @@ export const startup = defineType({
       to: [{ type: "author" }],
     }),
     defineField({
-      name: "date",
-      title: "Date",
-      type: "date",
-    }),
-    defineField({
       name: "views",
       title: "Views",
       type: "number",

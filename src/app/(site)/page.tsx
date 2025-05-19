@@ -15,7 +15,9 @@ export const metadata: Metadata = {
 export default async function Home({ searchParams }: Props) {
   const params = await searchParams;
 
-  const startups = await getStartups();
+  const startups = await getStartups({
+    query: (params.query as string) || undefined,
+  });
 
   return (
     <>
