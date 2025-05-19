@@ -17,6 +17,8 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export const experimental_ppr = true;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).slug;
   const startup = await getStartupById(id);
