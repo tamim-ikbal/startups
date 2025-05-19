@@ -5,6 +5,8 @@ import Image from "next/image";
 
 export default function ProfileCard() {
   const { data: session } = useSession();
+  console.log(session?.user);
+
   const { name, email, image } = session?.user || {};
 
   return (

@@ -1,15 +1,31 @@
 @import "tailwindcss";
+@import "easymde/dist/easymde.min.css";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
   --color-primary: #ee2b69;
   --color-primary-500: #ef4444;
   --shadow-startup-card: 4px 4px 0px 0px #000;
+  --color-accent: oklch(0.968 0.007 247.896);
 }
 
 @layer base {
   button {
-    border: 0;
-    outline: 0;
+    @apply border-0 outline-0;
+  }
+  h2 {
+    @apply text-black text-3xl font-bold tracking-[-0.9px];
+  }
+  h3 {
+    @apply text-black text-2xl font-bold tracking-[-0.9px];
+  }
+  h4 {
+    @apply text-black text-xl font-bold tracking-[-0.9px];
+  }
+  p {
+    @apply text-black text-base font-normal leading-[160%];
   }
 }
 

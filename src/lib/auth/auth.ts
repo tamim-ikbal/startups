@@ -12,4 +12,7 @@ export const authOptions: AuthOptions = {
     signIn: "/",
   },
   secret: process.env.AUTH_SECRET,
+  callbacks: {
+    // session: async ({ session, token, user }) => {},
+  },
 };

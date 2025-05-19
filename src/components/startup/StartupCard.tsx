@@ -1,16 +1,34 @@
+import { Startup } from "@/types/startup";
+import { formatDate } from "@/utils/formatDate";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function StartupCard() {
+type Props = {
+  startup: Startup;
+};
+
+export default function StartupCard({ startup }: Props) {
+  const {
+    slug,
+    category,
+    title = "",
+    image,
+    views,
+    author,
+    date,
+    description = "",
+  } = startup;
   return (
     <div className="rounded-[22px] border-[5px] py-8 px-[22px] shadow-startup-card flex flex-col gap-4">
       {/* Card Header */}
       <div className="flex justify-between items-center mb-1">
-        <div className="p-2.5 bg-[#FFE8F0] rounded-full inline-flex justify-center items-center">
-          <span className="text-base text-black font-medium tracking-[-0.48px] leading-4">
-            20 May, 2023
-          </span>
-        </div>
+        {date && (
+          <div className="p-2.5 bg-[#FFE8F0] rounded-full inline-flex justify-center items-center">
+            <span className="text-base text-black font-medium tracking-[-0.48px] leading-4">
+              {formatDate(date)}
+            </span>
+          </div>
+        )}
         <div className="inline-flex gap-1 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +53,7 @@ export default function StartupCard() {
             />
           </svg>
           <span className="text-base text-black font-medium tracking-[-0.48px] leading-4">
-            232
+            {views}
           </span>
         </div>
       </div>
@@ -44,27 +62,29 @@ export default function StartupCard() {
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-1.5">
             <p className="text-base text-black font-medium tracking-[-0.48px] leading-4">
-              Steven Smith
+              {author?.name}
             </p>
             <h3 className="text-[26px] text-black font-semibold tracking-[-0.y8px]">
-              EcoTrack
+              {title?.length > 14 ? `${title?.substring(0, 14)}...` : title}
             </h3>
           </div>
           <Image
-            className="shrink-0 w-[40px] h-[40px] object-center"
-            src="/assets/images/avatar.png"
-            alt="author"
+            className="shrink-0 w-[40px] h-[40px] object-center rounded-full"
+            src={author?.image || ""}
+            alt={author?.name || ""}
             width={40}
             height={40}
           />
         </div>
         <p className="text-[#333] text-ellipsis text-base font-normal leading-[150%]">
-          A mobile app that helps users track and reduce their carbo and ...
+          {description?.length > 65
+            ? `${description?.substring(0, 65)}...`
+            : description}
         </p>
         <Image
           className="shrink-0 w-full rounded-[10px] mt-1.5"
-          src="/assets/images/startup-placeholder.png"
-          alt="author"
+          src={image || ""}
+          alt={title || ""}
           width={300}
           height={200}
         />
@@ -73,11 +93,12 @@ export default function StartupCard() {
       {/* Card Footer */}
       <div className="flex justify-between items-center">
         <p className="text-base text-black font-medium tracking-[-0.48px] leading-4">
-          Senior level
+          {category}
         </p>
         <Link
-          href="/startups/details"
+          href={`/startups/${slug?.current}`}
           className="text-base text-white font-medium tracking-[-0.48px] px-5 py-2.5 bg-black rounded-[70px]"
+          scroll={false}
         >
           Details
         </Link>
