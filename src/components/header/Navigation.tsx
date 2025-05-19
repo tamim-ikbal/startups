@@ -49,7 +49,7 @@ export default function Navigation() {
                   Profile
                 </Link>
                 <button
-                  className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer inline-flex gap-[1px] items-center justify-between"
+                  className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer inline-flex gap-[1px] items-center justify-between disabled:cursor-progress"
                   onClick={handleLogout}
                   disabled={logoutLoader}
                 >
@@ -61,7 +61,7 @@ export default function Navigation() {
         </>
       ) : (
         <button
-          className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer inline-flex gap-[1px] items-center"
+          className="text-black text-[20px]font-normal font-semibold tracking-[-0.6px] duration-300 hover:text-primary-500 text-left cursor-pointer inline-flex gap-[1px] items-center disabled:cursor-progress"
           onClick={handleLogin}
           disabled={loginLoader}
         >
